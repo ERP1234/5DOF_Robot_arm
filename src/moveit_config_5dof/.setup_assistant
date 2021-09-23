@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: manipulator_h_description
+    relative_path: urdf/robotarm_5DOF.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/robotarm_5DOF.srdf
+  CONFIG:
+    author_name: Benjamin
+    author_email: barnes@campus.technion.ac.il
+    generated_timestamp: 1629818373

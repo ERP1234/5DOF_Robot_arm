@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+
+<robot name="robotarm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find robotarm)/urdf/links_joints.xacro" />
+
+  <!-- Dynamixel PH54-200-S500-R spec:
+        continuous torque = 44.7 [Nm]
+        continuous speed = 29 [rad/s] -->
+
+    <link name = "world"/>
+
+    <joint name="virtual_joint" type="fixed">
+      <parent link="world" />
+      <child link="base_link" />
+    </joint>
+
+    <m_link_mesh name="base_link"
+                 origin_xyz="-0.027 0.027 0" origin_rpy="1.57 0 0"
+                 meshfile="package://robotarm/meshes/link_1.STL"
+                 meshscale="0.001 0.001 0.001"
+                 mass="0.855"
+                 ixx="1273676.57e-9"
+                 ixy="0"
+                 ixz="0"
+                 iyy="1272091.46e-9"
+                 iyz="173.33e-9"
+                 izz="375253.31e-9"/>
+
+    <m_joint name="base_link__link_01"
+             motorname="motor1"
+             type="revolute"
+             axis_xyz="0 0 1"
+             origin_rpy="0 0 0" origin_xyz="0 0 0.159"
+             parent="base_link" child="link_01"
+             limit_e="44.7" limit_l="-3.14" limit_u="3.14" limit_v="3"
+             damp = "0" />
+
+    <m_link_mesh name="link_01"
+             origin_xyz="-0.027 0.069 -0.033" origin_rpy="1.57 0 0"
+             meshfile="package://robotarm/meshes/link_2.STL"
+             meshscale="0.001 0.001 0.001"
+             mass="0.934"
+             ixx="1537602.80e-9"
+             ixy="-0.03e-9"
+             ixz="0"
+             iyy="1525990.95e-9"
+             iyz="-36.60e-9"
+             izz="445727.51e-9"/>
+
+    <m_joint name="link_01__link_02" type="revolute"
+           motorname="motor2"
+           axis_xyz="0 0 1"
+           origin_rpy="1.57 0 0" origin_xyz="0 0 0"
+           parent="link_01" child="link_02"
+           limit_e="44.7" limit_l="-3.14" limit_u="3.14" limit_v="3"
+           damp = "0" />
+
+    <m_link_mesh name="link_02"
+             origin_xyz="-0.0235 0.03 -0.075" origin_rpy="0 0 -1.57"
+             meshfile="package://robotarm/meshes/link_3.STL"
+             meshscale="0.001 0.001 0.001"
+             mass="2.0248"
+             ixx="2319398.31e-9"
+             ixy="-4029.80e-9"
+             ixz="-411147.41e-9"
+             iyy="85204850.14e-9"
+             iyz="137.88e-9"
+             izz="83804990.37e-9"/>
+
+    <!-- <joint name="link_02__link_03" type="revolute">
+        <axis xyz="0 0 0" />
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5" />
+        <origin rpy="0 0 0" xyz="0.548 0 0"/>
+        <parent link="link_02"/>
+        <child link="link_03"/>
+    </joint> -->
+
+    <m_joint name="link_02__link_03" type="revolute"
+           motorname="motor3"
+           axis_xyz="0 0 1"
+           origin_rpy="0 0 0" origin_xyz="0.548 0 0"
+           parent="link_02" child="link_03"
+           limit_e="44.7" limit_l="-3.14" limit_u="3.14" limit_v="3"
+           damp = "0" />
+
+    <m_link_mesh name="link_03"
+                 origin_xyz="-0.0235 0.03 -0.063" origin_rpy="0 0 -1.57"
+                 meshfile="package://robotarm/meshes/link_4.STL"
+                 meshscale="0.001 0.001 0.001"
+                 mass="1.239"
+                 ixx="1226293.96e-9"
+                 ixy="-1927.47e-9"
+                 ixz="-119143.05e-9"
+                 iyy="43530598.46e-9"
+                 iyz="8.61e-9"
+                 izz="42869469.56e-9"/>
+
+    <joint name="link_03__end" type="fixed">
+         <origin rpy="0 0 0" xyz="0.521 0 0"/>
+         <parent link="link_03"/>
+         <child link="end"/>
+    </joint>
+
+    <m_link_box name="end"
+                origin_rpy="0 0 0" origin_xyz="0.03 0 0"
+                mass="0"
+                ixx="0" ixy="0" ixz="0"
+                iyy="0" iyz="0"
+                izz="0"
+                size="0.06 0.06 0.06" />
+
+    <gazebo>
+     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+     </plugin>
+    </gazebo>
+
+</robot>

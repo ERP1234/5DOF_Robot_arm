@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="robotis_manipulator_h" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- some parameters -->
+  <xacro:property name="pi" value="3.141592654" />
+
+  <!-- some parameters -->
+  <xacro:property name="pi" value="3.141592654" />
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find manipulator_h_description)/urdf/manipulator_h.gazebo" />
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find manipulator_h_description)/urdf/materials.xacro" />
+
+  <!-- Used for fixing robot to Gazebo 'link 1' -->
+ <link name="world">
+  </link>
+
+  <joint name="world_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="link_1"/>
+  </joint> 
+
+  <!-- link 1 -->
+  <link name="link_1">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_1.stl" /> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_1.stl" /> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="-6.38743521995389E-06 -4.43861822296832E-11 0.0608318718478432" rpy="0 0 0"/>
+
+      <mass value="0.855"/>
+       <inertia
+
+                   ixx="1273676.57e-9"
+                   ixy="0"
+                   ixz="0"
+                   iyy="1272091.46e-9"
+                   iyz="173.33e-9"
+                   izz="375253.31e-9" />
+
+    </inertial>
+  </link>
+
+  <!-- Joint 1 -->
+  <joint name="joint1" type="revolute">
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="0.0 0.0 0.12" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit velocity="6.5" effort="1000" lower="-3.14" upper="3.14" />
+    <dynamics damping="1"/>
+  </joint>
+
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- link 2 -->
+  <link name="link_2">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_2.stl"/> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_2.stl"/> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin
+
+        xyz="-4.14934198111894E-11 -0.000325967598113923 0.0321402876424691"
+
+        rpy="0 0 0" />
+      <!--<origin xyz="0.00000 -0.06820 -0.00117" rpy="0 0 0"/>-->
+      <mass value="0.934"/>
+      <inertia
+
+               ixx="1537602.80e-9"
+               ixy="-0.03e-9"
+               ixz="0"
+               iyy="1525990.95e-9"
+               iyz="-36.60e-9"
+               izz="445727.51e-9" />
+      <!--<inertia ixx="0.00152547" ixy="0.0" ixz="0.0" iyy="0.00045954" iyz="-0.00001086" izz="0.00151740" />-->
+    </inertial>
+  </link>
+
+  <!-- Joint 2 -->
+  <joint name="joint2" type="revolute">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+    <origin xyz="0.0 0 0.01" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit velocity="6.5" effort="1000" lower="-3.14" upper="3.14" />
+    <dynamics damping="1"/>
+  </joint>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- link 3 -->
+  <link name="link_3">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_3.stl"/> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_3.stl"/> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin
+
+        xyz="0.00132369141952546 -0.00322509695531026 0.398031886628976"
+
+        rpy="0 0 0" />
+      <!--<origin xyz="-0.01232 -0.05731 -0.05876" rpy="0 0 0"/>-->
+      <mass value="2.0"/>
+      <inertia
+
+            izz="2319398.31e-9"
+            ixy="-4029.80e-9"
+            ixz="-411147.41e-9"
+            iyy="85204850.14e-9"
+            iyz="137.88e-9"
+            ixx="83804990.37e-9" />
+      <!--<inertia ixx="0.01111021" ixy="0.00001331" ixz="-0.00134208" iyy="0.01046642" iyz="0.00016235" izz="0.00202081" />-->
+    </inertial>
+  </link>
+
+  <!-- Joint 3 -->
+  <joint name="joint3" type="revolute">
+    <parent link="link_3"/>
+    <child link="link_4"/>
+    <origin xyz="0.003000 0.06571150 0.571400" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit velocity="6.5" effort="1000" lower="-3.14" upper="3.14" />
+    <dynamics damping="1"/>
+  </joint>
+
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <!-- link 4 -->
+  <link name="link_4">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_4.stl"/> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://manipulator_h_description/meshes/link_4.stl"/> <!--scale="0.001 0.001 0.001"/> -->
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin
+
+        xyz="0.000192286862973748 -0.0691492696212278 0.28395137691921"
+
+        rpy="0 0 0" />
+      <!--<origin xyz="-0.07025 0.00034 -0.00021" rpy="0 0 0"/>-->
+      <mass value="1.23"/>
+       <inertia
+
+                      izz="1226293.96e-9"
+                      ixy="-1927.47e-9"
+                      ixz="-119143.05e-9"
+                      iyy="43530598.46e-9"
+                      iyz="8.61e-9"
+                      ixx="42869469.56e-9" />
+      <!--<inertia ixx="0.00096726" ixy="0.00004383" ixz="-0.00002771" iyy="0.00318801" iyz="0.00000627" izz="0.00341484" />-->
+    </inertial>
+
+  </link>
+
+
+
+  <!-- end_link -->
+  <link name="end_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+      <box size  = "0.06 0.06 0.06"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+      <box size = "0.06 0.06 0.06"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+
+      <mass value="0"/>
+       <inertia
+
+                   ixx="0"
+                   ixy="0"
+                   ixz="0"
+                   iyy="0"
+                   iyz="0"
+                   izz="0" />
+
+    </inertial>
+  </link>
+
+  <!-- Joint 4 -->
+  <joint name="end_joint" type="fixed">
+    <parent link="link_4"/>
+    <child link="end_link"/>
+    <origin xyz="0.0 -0.09 0.556" rpy="0 0 0"/>
+    <limit velocity="6.5" effort="1000" lower="-3.14" upper="3.14" />
+  </joint>
+
+
+
+
+
+
+
+
+
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+
+</robot>
+

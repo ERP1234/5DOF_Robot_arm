@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+    <param name="gazebo"                   value="true"     type="bool"/>
+    <param name="gazebo_robot_name"        value="robotarm_5DOF" />
+    <param name="offset_table"             value="$(find manipulator_h_manager)/config/offset.yaml"/>
+    <param name="robot_file_path"          value="$(find manipulator_h_manager)/config/robotarm_5DOF.robot"/>
+    <param name="init_file_path"           value="$(find manipulator_h_manager)/config/dxl_init.yaml"/>
+    <!-- Manipulator Manager -->
+    <node pkg="manipulator_h_manager" type="manipulator_h_manager" name="robotarm_5DOF_manager_test" output="screen"/>
+</launch>

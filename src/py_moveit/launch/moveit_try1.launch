@@ -1,0 +1,7 @@
+
+<launch>
+
+  <node name="move_group_python_interface" pkg="moveit_py_interface" type="moveit_try1.py" respawn="false" output="screen">
+  </node>
+
+</launch>

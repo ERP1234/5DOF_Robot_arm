@@ -1,0 +1,6 @@
+arm:
+  kinematics_solver: robotarm_5DOF_arm_kinematics/IKFastKinematicsPlugin
+  kinematics_solver_attempts: 20
+  kinematics_solver_search_resolution: 0.005
+  kinematics_solver_timeout: 0.01
+  

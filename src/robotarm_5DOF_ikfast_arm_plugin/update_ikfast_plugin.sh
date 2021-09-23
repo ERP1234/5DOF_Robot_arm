@@ -1,0 +1,1 @@
+rosrun moveit_kinematics create_ikfast_moveit_plugin.py robotarm_5DOF arm robotarm_5DOF_ikfast_arm_plugin /home/benji/catkin_ws/src/robotarm_5DOF_ikfast_arm_plugin/src/robotarm_5DOF_arm_ikfast_solver.cpp
